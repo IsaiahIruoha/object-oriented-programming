@@ -209,7 +209,6 @@ public class Date
             else
                 System.out.println("Illegal date. Reenter input.");
          }
-        keyboard.close(); // Fixed small bug where the keyboard was not closed
     }
 
     private boolean dateOK(int monthInt, int dayInt, int yearInt)

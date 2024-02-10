@@ -23,26 +23,35 @@ public class GuessMaster {
 	
 	public void playGame(Entity entity) {
         Scanner keyboard = new Scanner(System.in); // Declaring Scanner locally similarly to Date Class example
-
         System.out.println("Guess the birth date of: " + entity.getName() + ".");
-        String input = keyboard.nextLine();
-
-        if (input.toLowerCase().equals("quit")|| input.toLowerCase().equals("exit")) { // Allows any case for the word to be typed for the command to execute 
-            System.out.println("Game Exited");
-            System.exit(0);
+        boolean tryAgain = true;
+        
+        
+        while(tryAgain) {
+	        String input = keyboard.nextLine();
+	
+	        if (input.toLowerCase().equals("quit")|| input.toLowerCase().equals("exit")) { // Allows any case for the word to be typed for the command to execute 
+	            System.out.println("Game Exited");
+	            System.exit(0);
+	        }
+	
+	        Date guessDay = new Date(input);
+	        Date realDay = entity.getBorn();
+	
+	        if (guessDay.equals(realDay)) {
+	            System.out.println("BINGO. You got it!!");
+	            tryAgain = false;
+	            return;
+	        } 
+	        if (guessDay.precedes(realDay)) {
+	            System.out.println("Incorrect. Try a later date.");
+	        } else {
+	            System.out.println("Incorrect. Try an earlier date.");
+	        }
         }
-
-        Date guessDay = new Date(input);
-        Date realDay = entity.getBorn();
-
-        if (guessDay.equals(realDay)) {
-            System.out.println("BINGO. You got it!!");
-        } else if (guessDay.precedes(realDay)) {
-            System.out.println("Incorrect. Try a later date.");
-        } else {
-            System.out.println("Incorrect. Try an earlier date.");
-        }
-        keyboard.close(); // Fixed small bug where the keyboard was not closed
+        
+        keyboard.close(); 
+        
     }
 	
 	public void playGame(int index) {
@@ -74,8 +83,8 @@ public class GuessMaster {
 		gm.addEntity(dion);
 		gm.addEntity(usa);
 		
-//		while(true) { // Runs the game until user quits or errors out
-//			gm.playGame(); // Call the playGame method without specifying an entity, which will select a random one
-//		}
+		while(true) { // Runs the game until user quits or errors out
+			gm.playGame(); // Call the playGame method without specifying an entity, which will select a random one
+		}
 	}
 }
