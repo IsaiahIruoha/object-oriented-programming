@@ -29,6 +29,6 @@ public class Person {
    
     // Describle itself
     public String toString() {
-        return name +": "+ ID + "(" + address + ")";
+        return name +": "+ ID + " (" + address + ")";
     }
 }
