@@ -1,6 +1,6 @@
 // Isaiah Iruoha (20346489) 
 
-package PersonAndDate;
+package Assignment2;
 import java.util.Scanner;
 
 public class Date

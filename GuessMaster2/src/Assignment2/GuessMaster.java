@@ -1,12 +1,15 @@
 // Isaiah Iruoha (20346489) 
 
-package PersonAndDate;
+package Assignment2;
 import java.util.Random;
 import java.util.Scanner; // Allows use of the scanner functionality
+
+import Assignment2.Entity;
 
 public class GuessMaster {
 	private int numberOfCandidateEntities;
 	private Entity[] entities; 
+	private int ticketsTotal; 
 	
 	public GuessMaster()
 	{
@@ -16,9 +19,9 @@ public class GuessMaster {
 	
 	public void addEntity(Entity entity) { // Add an entity to the game
         if (numberOfCandidateEntities < entities.length) {
-        	entities[numberOfCandidateEntities++] = new Entity(entity);
-        } else {
-            System.out.println("Entities Full");
+                // Clone the entity before adding it to the array
+                Entity clonedEntity = entity.clone();
+                entities[numberOfCandidateEntities++] = clonedEntity;
         }
     }
 	
@@ -31,17 +34,26 @@ public class GuessMaster {
 		}
 	}
 	
+	// Validate date method
+	private boolean isValidDate(int day, int month, int year) {
+	    // Check if the date components fall within valid ranges
+	    return (month >= 1 && month <= 12) &&
+	            (day >= 1 && day <= 31) &&
+	            (year >= 1000 && year <= 9999);
+	}
+	
 	// Method to play the guessing game for the birth date of the given entity
 	public void playGame(Entity entity) {
 	    Scanner keyboard = new Scanner(System.in); // Create a scanner object for input
-	    System.out.println("Guess the birth date of: " + entity.getName() + "."); // Prompt usr to guess the birth date of the entity
+	    System.out.println(entity.welcomeMessage()); 
+	    System.out.println("Guess the birth date of: " + entity.getName() + "."); // Prompt user to guess the birth date of the entity
 		System.out.println("(mm/dd/yyyy)");
 
 	    while (true) { // Continue looping until the user exits or guesses the date
 	        String input = keyboard.nextLine(); // Read input
 	        
 	        if (input.toLowerCase().equals("quit") || input.toLowerCase().equals("exit")) { // Check if user wants game over
-	            System.out.println("Game Exited"); 
+	            System.out.println("Thanks for playing!"); 
 	            System.exit(0); 
 	        }
 
@@ -49,6 +61,14 @@ public class GuessMaster {
 	        
 	        // Attempt to create a Date object from the user input (https://www.w3schools.com/java/java_try_catch.asp)
 	        try {
+	        	String[] parts = input.split("/");
+	            int testMonth = Integer.parseInt(parts[0]);
+	            int testDay = Integer.parseInt(parts[1]);
+	            int testYear = Integer.parseInt(parts[2]);
+	            if(!isValidDate(testDay, testMonth, testYear)){
+	            	throw new IllegalArgumentException("Invalid date provided.");
+	            }; 
+	            
 	            guessDay = new Date(input); // Parse the user input as a date
 	        } catch (Exception error) {
 	            System.out.println("Invalid date format. Enter month/day/year format: "); // Prompt the user for a valid date format
@@ -63,8 +83,11 @@ public class GuessMaster {
 				int rd = random.nextInt(50);
 				rd += 50; 
 				System.out.println("*************Bingo!***************\n");
-				System.out.printf("***Your bonus is %d$****\n", rd*100);
-				break;
+				ticketsTotal += entity.getAwardedTicketNumber(entity.getDifficulty()); 
+				System.out.println("You won " + entity.getAwardedTicketNumber(entity.getDifficulty()) + " tickets in this round.\nYour total number of tickets is " + ticketsTotal + ".\n");
+				System.out.println("**********************************\n"); 
+				System.out.println(entity.closingMessage()); 
+				return; 
 	        }
 
 	        // Provide feedback based on whether the guessed date is earlier or later than the actual birth date
@@ -74,16 +97,6 @@ public class GuessMaster {
 	            System.out.println("Incorrect. Try an earlier date."); // Inform the user to try an earlier date
 	        }
 	    }
-
-	    keyboard.close(); // Close the scanner to release system resources
-	}
-
-	// Validate date method
-	private boolean isValidDate(Date date) {
-	    // Check if the date components fall within valid ranges
-	    return (date.getMonth() >= 1 && date.getMonth() <= 12) &&
-	            (date.getDay() >= 1 && date.getDay() <= 31) &&
-	            (date.getYear() >= 1000 && date.getYear() <= 9999);
 	}
 	
 	public void playGame() {
@@ -100,14 +113,45 @@ public class GuessMaster {
 	
 	public static void main(String []args) {
 		System.out.println("=========================\n");
-		System.out.println("     GuessMaster 1.0 \n");
-		System.out.println("=========================");
+		System.out.println("     GuessMaster 2.0 \n");
+		System.out.println("=========================\n");
+		
+		
+		Politician trudeau = new Politician(
+	    "Justin Trudeau",
+	    new Date("December", 25, 1971),
+	    "Male",
+	    "Liberal",
+	    0.25
+		);
+
+		Singer dion = new Singer(
+	    "Celine Dion",
+	    new Date("March", 30, 1961),
+	    "Female",
+	    "La voix du bon Dieu",
+	    new Date("November", 6, 1981),
+	    0.5
+		);
+
+		Person isaiah = new Person(
+	    "Isaiah Iruoha",
+	    new Date("March", 2, 2004),
+	    "Male",
+	    1
+		);
+
+		Country usa = new Country(
+	    "United States",
+	    new Date("July", 4, 1776),
+	    "Washington D.C.",
+	    0.1
+		);
+
 		GuessMaster gm = new GuessMaster();
-		Entity trudeau = new Entity("Justin Trudeau", new Date("December", 25, 1971));
-		Entity dion = new Entity("Celine Dion", new Date("March", 30, 1968));
-		Entity usa = new Entity("United States", new Date("July", 4, 1776));
 		gm.addEntity(trudeau);
 		gm.addEntity(dion);
+		gm.addEntity(isaiah);
 		gm.addEntity(usa);
 		
 		gm.playGame(); // Call the playGame method without specifying an entity, which will select a random one

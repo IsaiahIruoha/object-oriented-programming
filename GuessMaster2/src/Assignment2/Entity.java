@@ -1,20 +1,23 @@
 // Isaiah Iruoha (20346489) 
 
-package PersonAndDate;
+package Assignment2;
 
-public class Entity {
+public abstract class Entity implements Cloneable {
     private String name;
     private Date born;
+    private double difficulty; 
 
     // Constructors
-    public Entity(String name, Date born) {
+    public Entity(String name, Date born, double difficulty) {
         this.name = name;
+        this.difficulty = difficulty;
 		this.born = new Date(born); //no privacy leak
     }
 
     // Copy Constructor
     public Entity(Entity entity) {
-        this.name = entity.getName();
+    	this.name = entity.getName();
+        this.difficulty = entity.getDifficulty(); 
         this.born = new Date(entity.born); //no privacy leak
     }
 
@@ -26,6 +29,10 @@ public class Entity {
     public Date getBorn() {
         return born;
     }
+    
+    public double getDifficulty() {
+    	return difficulty; 
+    }
 
     // Mutators
     public void setName(String name) { // Uses this to differentiate instance variables from arguments
@@ -35,11 +42,36 @@ public class Entity {
     public void setBorn(Date born) {
         this.born = born;
     }
-
+    
+    // GetAwardedTicketNumber method
+    
+    public int getAwardedTicketNumber(double difficulty) {
+    	return (int)(difficulty*100); 
+    }
+    
+    // entityType method
+    
+    public abstract String entityType(); 
+    
+    // clone method 
+    
+    public abstract Entity clone(); 
+    
+    // welcomeMessage method 
+    
+    public String welcomeMessage () {
+    	return "Welcome! Let's start the game! " + entityType() + "\n"; 
+    }
+    
+    // closingMessage method 
+    
+    public String closingMessage () {
+    	return "Congratulations! The detailed information of the entity you guess is:\nName: " + toString() + "\n";  
+    }
+    
     // toString Method
     public String toString() {
-        String entityText = name + ", born on " + born.toString();
-        return entityText;
+        return name + "\nBorn on: " + born.toString() + "\n";
     }
 
     // Equals method
@@ -55,4 +87,5 @@ public class Entity {
         }
         return this.name.equals(entity.getName()) && this.born.equals(entity.getBorn()); // Use string and date class methods to check equality between instance variables (returns boolean)
     }
+       
 }
