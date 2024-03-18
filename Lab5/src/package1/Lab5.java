@@ -47,8 +47,8 @@ public class Lab5 {
         System.out.println("Final size of the ArrayList: " + employees.size());
         
         
-        Pair<String> couple1 = new Pair<>("Cohen", "Rachel");
-        Pair<String> couple2 = new Pair<>("Cohen", "Rachel"); 
+        Pair<String> couple1 = new Pair<>("Felicia", "Laha");
+        Pair<String> couple2 = new Pair<>("Felicia", "Laha"); 
         Pair<String> couple3 = new Pair<>("Rudie", "Mertin");
 
         System.out.println("couple1 equals couple2: " + couple1.equals(couple2));
