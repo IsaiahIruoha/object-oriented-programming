@@ -761,7 +761,12 @@ public Date(Date aDate){
   - if that object is a type of the current class (which is always true for a “copy constructor” by definition).
 - Why can we do this in the same class (i.e., accessing even a private variable of an object passed in by name, if that variable is a type of the current class)?
   - Since it is safe to access (even private) instance variables in the same class but that is not necessarily true in derived classes.
-  - 
+
+
+
+![Screenshot 2024-03-24 at 4 06 22 PM](https://github.com/IsaiahIruoha/object-oriented-programming/assets/76797894/e6a92770-3f63-4502-88ec-b636eabaa198)
+
+    
   
 # ELEC 279 Introduction to Objected Oriented Programming: Inheritance (IV)
 
@@ -1119,6 +1124,8 @@ Building on prior discussions about defining and implementing interfaces, this l
 
 ### Key Takeaways
 - Exception handling in Java is a robust mechanism for managing errors and ensuring that your program can handle unexpected situations gracefully.
+
+
 ![Screenshot 2024-03-24 at 4 01 10 PM](https://github.com/IsaiahIruoha/object-oriented-programming/assets/76797894/337adbdf-c046-46c6-8c00-ec9944ce3c2f)
 
 
