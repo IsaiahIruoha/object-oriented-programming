@@ -1119,6 +1119,8 @@ Building on prior discussions about defining and implementing interfaces, this l
 
 ### Key Takeaways
 - Exception handling in Java is a robust mechanism for managing errors and ensuring that your program can handle unexpected situations gracefully.
+![Screenshot 2024-03-24 at 4 01 10 PM](https://github.com/IsaiahIruoha/object-oriented-programming/assets/76797894/337adbdf-c046-46c6-8c00-ec9944ce3c2f)
+
 
 - # ELEC 279: Introduction to Objected Oriented Programming - Exception Handling, Inner Classes
 
