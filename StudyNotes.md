@@ -975,3 +975,317 @@ public Date(Date aDate){
 - Cannot create instances of an abstract class.
 - Can use an abstract class type for variables and method parameters.
 - Example demonstrated in `AbstractClassDemo`.
+
+# ELEC 279: Introduction to Objected Oriented Programming - The Clone Methods Interface (I)
+
+## The Clone Method and Interfaces
+
+### The Clone Method:
+- **Overview:** The clone method, inherited from the `Object` class, is designed to return a deep copy of the calling object. However, its inherited version is not directly usable and should be overridden for appropriateness.
+- **Method Overriding:**
+  - Access level can change to more permissive (e.g., from protected to public).
+  - Return type can change to the class's type being cloned, utilizing covariant return types.
+
+### Prior to Java 5.0:
+- The clone method could only return `Object` as its return type, necessitating type-casting (downcasting) to the specific class type when used.
+
+### Clone Method vs. Copy Constructor:
+- While both appear to serve the same function, there are scenarios where only the clone method is appropriate.
+- **Example:** If an array contains objects of a derived class (e.g., `DiscountSale`), the copy constructor would only return a plain `Sale` object, not a true copy.
+
+### Interfaces:
+- An interface in Java is akin to an extreme case of an abstract class, specifying a set of methods that any implementing class must have.
+- Interfaces contain only method headings and constant definitions, no instance variables or complete method definitions.
+
+### Implementing an Interface:
+- A class implements an interface by declaring `implements Interface_Name` and must define all methods listed in the interface.
+- Interfaces allow for a type of multiple inheritance in Java, where a class can satisfy multiple interfaces.
+
+### Interfaces in Java:
+- All method headings and the interface itself should be declared public.
+- A method can have a parameter of an interface type, accepting any class that implements the interface as an argument.
+
+# ELEC 279: Introduction to Objected Oriented Programming - Interface (II)
+
+## Interfaces in Java: `Comparable` and `Cloneable`
+
+### Overview
+After discussing abstract methods, clone methods, and the basics of interfaces, this lecture delves into two critical Java interfaces: `Comparable` and `Cloneable`.
+
+### The `Comparable` Interface
+- Part of the `java.lang` package, automatically available to any Java program.
+- Contains a single method `compareTo(Object other)` that must be implemented.
+- **Semantics:**
+  - `compareTo` returns a negative number if the calling object "comes before" the parameter.
+  - Returns zero if the objects are considered equal.
+  - Returns a positive number if the calling object "comes after" the parameter.
+- **Usage:** Enables sorting and ordering of objects. Classes like `Double` and `String` implement `Comparable`, allowing comparisons between instances.
+
+### The `Cloneable` Interface
+- A tag interface (no methods or constants) indicating how the `clone` method inherited from `Object` should be redefined.
+- Essential for making deep copies of objects, particularly when they contain mutable instance variables.
+- **Implementation Strategies:**
+  - **Simple Case:** If an object only contains primitive data or immutable objects, a bit-by-bit copy (shallow copy) is adequate.
+  - **Complex Case:** For objects with mutable class types as instance variables, a deeper copy is necessary to prevent privacy leaks. This involves explicitly cloning mutable instance variables.
+
+### Implementing `Cloneable` Interface
+- A class implementing `Cloneable` needs to override the `clone` method to ensure a proper deep copy is made.
+- **Process:**
+  - Invoke `super.clone()` to create a shallow copy.
+  - Manually clone mutable instance variables to ensure deep copying.
+
+### Key Points
+- The `Comparable` interface allows for defining a natural ordering of objects, making them sortable.
+- The `Cloneable` interface facilitates object cloning, crucial for creating independent object copies in Java.
+- Implementing these interfaces requires careful consideration of their semantics and the specific needs of your class.
+
+# ELEC 279: Introduction to Objected Oriented Programming - Interface (III)
+
+## Advanced Topics in Interfaces
+
+### Overview
+Building on prior discussions about defining and implementing interfaces, this lecture explores more advanced topics, including the `Comparable` interface, the `Cloneable` interface, constants in interfaces, inconsistent interfaces, extending interfaces, and differences between interfaces and abstract classes.
+
+### The `Comparable` Interface
+- Concrete classes implementing `Comparable` must define the `compareTo` method.
+- `compareTo` establishes a total ordering for lists of objects, intuitive for classes like `Double` and `String`.
+- Custom `compareTo` definitions can compare objects based on specific attributes, e.g., employee names, hire dates, or salaries.
+
+### The `Cloneable` Interface
+- Discussed as a Java predefined interface with no methods or constants, used as a tag to indicate how the `clone` method should be overridden.
+
+### Constants in Interfaces
+- Interfaces can include constants but not regular instance variables.
+- Classes implementing the interface have access to these constants.
+- Java often uses enum types for similar purposes, but interfaces offer unique advantages.
+
+### Inconsistent Interfaces
+- A single class may implement multiple interfaces, leading to potential inconsistencies, such as overlapping constant names or methods with the same name but different return types.
+
+### Extending Interfaces
+- Interfaces can be extended, creating "sub-interfaces."
+- A concrete class implementing a derived interface must provide definitions for methods in both the derived and base interfaces.
+
+### Differences Between Interfaces and Abstract Classes
+- Interfaces support a form of multiple inheritance and cannot contain data members or constructors, while abstract classes can contain incomplete methods and method definitions.
+
+### Key Points
+- The `Comparable` and `Cloneable` interfaces are crucial for defining natural ordering and cloning mechanisms in Java objects.
+- Constants in interfaces and the possibility of extending interfaces provide flexibility in defining class behaviors.
+- The choice between using interfaces or abstract classes depends on the specific needs of the application and whether multiple inheritance is required.
+
+# ELEC 279: Introduction to Objected Oriented Programming - Exception Handling
+
+## Core Concepts of Exception Handling in Java
+
+### Introduction to Exception Handling
+- Java uses `try`, `catch`, and `finally` keywords for exception handling.
+- Exception handling is essential for managing runtime errors, allowing the program to continue or terminate gracefully.
+
+### Types of Programming Errors
+- **Compilation Errors:** Issues found during the compilation process.
+- **Runtime Errors:** Problems that occur while the program is running.
+- **Logic Errors:** Errors in the program's logic that produce incorrect results.
+
+### Exception Handling Mechanism
+- Exception handling is designed to prepare for and manage the occurrence of exceptional conditions during program execution.
+
+### The `try-throw-catch` Mechanism
+- **`try` Block:** Contains code that might throw an exception. Execution continues with the `catch` block if an exception occurs.
+- **`catch` Block:** Handles exceptions thrown by the `try` block. It acts similarly to a method definition with a parameter of type `Exception`.
+
+### The `catch` Block
+- Functions as an exception handler, with the parameter specifying the type of exception it can catch.
+
+### Exception Classes
+- Java has a hierarchy of exception classes, with `Exception` being the root. These include both Java-predefined and programmer-defined exception classes.
+
+### Defining Exception Classes
+- Exception classes must be derived from an existing exception class. Constructors are crucial for defining how the exception is handled.
+
+### Multiple `catch` Blocks
+- Multiple `catch` blocks can be used to handle different types of exceptions thrown within a `try` block.
+
+### Order of `catch` Blocks
+- The more specific exceptions should be caught first, as Java will match exceptions to `catch` blocks from top to bottom.
+
+### The `finally` Block
+- Executes code regardless of whether an exception was thrown or caught, ensuring that certain cleanup actions are always performed.
+
+### Cases for `finally` Block Execution
+- **Case 1:** No exception is thrown; the `finally` block executes after the `try` block.
+- **Case 2:** An exception is thrown and caught; the `finally` block executes after the `catch` block.
+- **Case 3:** An exception is thrown but not caught; the `finally` block still executes, but the code after it does not.
+
+### Key Takeaways
+- Exception handling in Java is a robust mechanism for managing errors and ensuring that your program can handle unexpected situations gracefully.
+
+- # ELEC 279: Introduction to Objected Oriented Programming - Exception Handling, Inner Classes
+
+## Advanced Topics: Exception Handling and Inner Classes
+
+### Recap of Last Lecture on Exception Handling
+- Introduction to the `try-throw-catch` trio for managing exceptions.
+- Emphasis on defining custom exception classes and using multiple `catch` blocks.
+- The importance of catching more specific exceptions first and utilizing the `finally` block.
+
+### Exception Handling Continued
+- Throwing exceptions within methods without immediate catching, necessitating a `throws` clause in the method signature.
+- The "catch or declare rule" and its implications for method design.
+- Discussion on unchecked versus checked exceptions, including `ArrayIndexOutOfBoundsException` and custom exception classes.
+
+### Introduction to Inner Classes
+- Explanation of inner classes as classes defined within other classes.
+- Reasons for using inner classes, including encapsulation benefits and access to the outer class's private members.
+- Examples of simple uses of inner classes, such as defining a `Money` class within a `BankAccount` class.
+
+### Detailed Discussion on Inner Classes
+- The ability of inner and outer classes to access each other's private members.
+- The implications of public versus private inner classes.
+- How to reference and instantiate inner classes from outside the outer class.
+- Special considerations for static inner classes and the syntax for invoking methods or accessing variables of static inner classes.
+
+### Nested Inner Classes and Inheritance Implications
+- Legality and practicality of nesting inner classes.
+- How derived classes of an outer class inherit inner classes, affecting object instantiation and method invocation.
+
+### Key Takeaways
+- Exception handling in Java provides a robust mechanism to deal with runtime errors and other exceptional conditions.
+- Inner classes offer a powerful tool for encapsulation and can significantly enhance the organization and modularity of Java code.
+
+- # W09L1_ELEC279_2024: Android Programming
+
+## Objective
+- Introduction to Android programming.
+- Setting up the development environment.
+- Testing and running Android programs.
+
+## Introduction to Android
+- Android is an OS for mobile devices like smartphones, watches, tablets, and TVs.
+- Written in Java and C++; it's UNIX-like with a Linux Kernel.
+- Developed and maintained by Google and the Open Handset Alliance.
+- Uses Java for programming and XML for GUI styling.
+
+## Some Statistics
+- Android has been leading the mobile OS market globally since the first quarter of 2011.
+
+## Android Versions
+- First released in 2008, versions have unique names like Pie (9.0), Oreo (8.0), Nougat (7.0), and Marshmallow (6.0).
+
+## Android Architecture and App Components
+- **Activities:** Manage UI for a single screen.
+- **Services:** Handle background tasks.
+- **BroadcastReceivers:** React to system-wide broadcast announcements.
+- **ContentProviders:** Manage a shared set of app data.
+
+## Activity Lifecycle
+- Activities have lifecycle callback methods to manage their state and behavior.
+- Callback methods include `onCreate()`, `onStart()`, `onResume()`, `onPause()`, `onStop()`, and `onDestroy()`.
+
+## Getting Started with Android Development
+- Install Java Development Kit (JDK) and Android Studio.
+- Set up a physical device for testing in developer mode or use an Android Emulator.
+
+## Android Studio and Emulator
+- Android Studio is the official IDE for Android development.
+- The built-in emulator allows testing on virtual devices.
+
+## Android Development Process
+1. Setup development environment (JDK and Android Studio).
+2. Set device to developer mode for testing.
+3. Create a new project.
+4. Test the app on an emulator or physical device.
+
+## Android Project Example
+- Steps to create a new Android project and configure it, including setting the language to Java and creating a device emulator.
+
+## Android App Testing
+- Running and testing your first Android app on an emulator or a physical device.
+
+## Conclusion
+This introduction to Android programming covers the basics of setting up the environment, understanding the core components of Android apps, and the lifecycle of activities. It provides the foundation needed to begin developing Android applications.
+
+# W09L3_ELEC279_2024: Generics
+
+## Overview
+
+Following lectures on Android programming basics and inner classes, this lecture introduces Generics in Java, illustrating how they enhance code reusability and type safety.
+
+### Recap of Previous Lectures
+- Basics of Android programming, focusing on UI components like TextViews and Buttons.
+- Introduction to inner classes as classes defined within other classes, with examples and explanations on invoking methods of the outer class from an inner class, and vice versa.
+
+### Introduction to Generics
+- Generics provide a way to introduce type parameters to classes, interfaces, and methods, enabling code reuse across different data types.
+
+### The ArrayList Class
+- Discussion on the `ArrayList` class as an example of Generics in Java.
+- Unlike arrays, `ArrayList` can dynamically resize, offering more flexibility and convenience through various methods.
+
+### Defining and Using Generics
+- Explanation of how to define and use Generics with the `ArrayList` class, including type parameters and the benefits of type safety and avoiding casting.
+
+### Generic Methods and Classes
+- Introduction to defining generic methods and classes, including constructors and the usage of type parameters.
+
+### Key Concepts in Generics
+- **Type Parameter:** A symbol that can be replaced by any reference type to create a parameterized type.
+- **Parameterized Class:** A class that includes one or more type parameters.
+
+### Using Generics with Custom Classes
+- Examples of creating and using custom generic classes, such as an `OrderedPair` class that holds pairs of objects of any type.
+- Illustration of constraints with Generics, such as the inability to create instances of a type parameter directly with `new T()`.
+
+### Generics and Collections
+- Generics are extensively used in Java Collections Framework to ensure type safety and reduce runtime errors.
+- The introduction of the `for-each` loop in Java 5, designed for cycling through Collections like `ArrayList`.
+
+### Pitfalls and Considerations
+- Discussion on the limitations and considerations when working with Generics, such as the prohibition of primitive types as type parameters and the rules for defining generic constructors.
+
+## Conclusion
+Generics in Java allow for the creation of flexible, reusable, and type-safe classes, interfaces, and methods. This lecture covers the basics of Generics, their application in collections like `ArrayList`, and the construction of custom generic classes.
+
+# W10L1_ELEC279_2024: Generics
+
+## Advanced Concepts in Generics
+
+### Bounded Type Parameters
+- Generics can have restrictions or bounds on the type parameters to ensure only specific types can be used.
+- Syntax: `public class MyClass<T extends Comparable>` restricts `T` to types that implement `Comparable`.
+
+### Bounded Type Parameter Example
+- Example of setting bounds to ensure type safety and leverage polymorphism within generic classes.
+
+### Bounds for Type Parameters
+- Bounds can be a class or an interface. When bounded by a class, only that class or its subclasses can be used as the type parameter.
+
+### Multiple Bounds
+- A type parameter can have multiple bounds, including both classes and interfaces, using syntax like `T extends Class1 & InterfaceA & InterfaceB`.
+
+### Generic Interfaces
+- Interfaces can also be generic, similar to classes, allowing for more flexible interface definitions.
+
+### Generic Methods
+- Methods within a generic class can use the class's type parameter, and Java also supports generic methods with their own type parameters.
+- Syntax for generic method declaration includes the type parameter before the return type: `public static <T> T myMethod(T[] a)`.
+
+### Inheritance with Generic Classes
+- Generic classes can inherit from both non-generic and generic classes. However, genericity does not imply polymorphism between different parameterized types of the same generic class.
+
+### Wildcards in Generics
+- Wildcards (`?`) are used when the specific type parameter is unknown or when method parameters can accept multiple types of generics.
+- Wildcards can have upper bounds (`? extends SomeClass`) and lower bounds (`? super SomeClass`) to restrict the type parameter further.
+
+### Practical Application of Generics
+- Generics enhance code reusability and type safety in Java programming.
+- They are particularly useful in collections, allowing for operations on collections of specific types while maintaining compile-time type safety.
+
+### Key Takeaways
+- Generics in Java provide a robust mechanism for type-safe operations on objects and collections.
+- Bounded type parameters and wildcards introduce flexibility in restricting and utilizing generic types.
+- Understanding generics is crucial for designing flexible and type-safe Java applications.
+
+
+
+
