@@ -1362,6 +1362,31 @@ Building on prior discussions about defining and implementing interfaces, this l
 - **Case 2:** An exception is thrown and caught; the `finally` block executes after the `catch` block.
 - **Case 3:** An exception is thrown but not caught; the `finally` block still executes, but the code after it does not.
 
+## Java Code
+
+```java
+public class ExceptionHandlingDemo {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0);  // This will cause an ArithmeticException
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException("Division by zero occurred", e);
+        } finally {
+            System.out.println("This block is always executed");
+        }
+    }
+
+    public static int divide(int numerator, int denominator) {
+        if (denominator == 0) {
+            throw new ArithmeticException("Cannot divide by zero");
+        }
+        return numerator / denominator;
+    }
+}
+```
+
 ### Key Takeaways
 - Exception handling in Java is a robust mechanism for managing errors and ensuring that your program can handle unexpected situations gracefully.
 
