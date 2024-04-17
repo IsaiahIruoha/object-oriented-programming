@@ -527,7 +527,6 @@ public Date getBirthDate() {
 - The package java.lang contains the classes that are fundamental to Java programming.
   - It is imported automatically, so no import statement is needed.
 - Classes made available by java.lang include Math, String, and the wrapper classes for the fundamental data types.
-- 
 
 # ELEC 279 Introduction to Objected Oriented Programming: Inheritance (I)
 
