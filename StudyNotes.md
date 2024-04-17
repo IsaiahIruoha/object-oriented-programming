@@ -1658,7 +1658,7 @@ public class Pair<K, V> {
 Generic classes allow for the definition of classes with a type parameter to be specified by the client. This promotes code reusability and type safety.
 
 #### Basic Generic Class:
-\```java
+```java
 public class MyClass<T> {
     private T data;
 
